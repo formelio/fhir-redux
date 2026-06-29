@@ -1,18 +1,11 @@
-use derive_builder::Builder;
-use serde::{Deserialize, Serialize};
-
-use crate::codes;
 use crate::r4::resources::Resource;
+use crate::{codes, type_struct};
 
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Builder)]
-#[serde(rename_all = "camelCase")]
-pub struct BundleEntry {
+type_struct!(BundleEntry {
     pub resource: Resource,
     pub search: BundleEntrySearch,
-}
+});
 
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Builder)]
-#[serde(rename_all = "camelCase")]
-pub struct BundleEntrySearch {
+type_struct!(BundleEntrySearch {
     pub mode: codes::SearchEntryMode,
-}
+});

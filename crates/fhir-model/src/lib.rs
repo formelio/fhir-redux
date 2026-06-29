@@ -47,18 +47,85 @@ macro_rules! resource {
 }
 
 #[macro_export]
-macro_rules! resource_struct {
+macro_rules! type_struct {
     (@ $resource:ident { } -> ($($fields:tt)*)) => {
-        paste::paste! {
+        pastey::paste! {
             #[derive(serde::Serialize, serde::Deserialize, derive_builder::Builder, Debug, Clone, PartialEq)]
             #[serde(rename_all = "camelCase")]
             pub struct $resource {
+                $($fields)*
+            }
+
+            impl $resource {
+                pub fn builder() -> [<$resource Builder>] {
+                    [<$resource Builder>]::default()
+                }
+            }
+        }
+    };
+
+    ( @ $resource:ident { $(#[$attributes:meta])* @nodefault $vis:vis $key:ident: Option<$value:ty> $(, $($parameters:tt)*)? } -> ($($processed:tt)*) ) => (
+        $crate::type_struct!(@ $resource { $($($parameters)*)? } -> (
+            $($processed)*
+            #[serde(skip_serializing_if = "Option::is_none")]
+            $(#[$attributes])*
+            $vis $key: Option<$value>,
+        ));
+    );
+
+    ( @ $resource:ident { $(#[$attributes:meta])* $vis:vis $key:ident: Option<$value:ty> $(, $($parameters:tt)*)? } -> ($($processed:tt)*) ) => (
+        $crate::type_struct!(@ $resource { $($($parameters)*)? } -> (
+            $($processed)*
+            #[serde(default, skip_serializing_if = "Option::is_none")]
+            #[builder(default)]
+            $(#[$attributes])*
+            $vis $key: Option<$value>,
+        ));
+    );
+
+    ( @ $resource:ident { $(#[$attributes:meta])* @nodefault $vis:vis $key:ident: Vec<$value:ty> $(, $($parameters:tt)*)? } -> ($($processed:tt)*) ) => (
+        $crate::type_struct!(@ $resource { $($($parameters)*)? } -> (
+            $($processed)*
+            #[serde(skip_serializing_if = "Vec::is_empty")]
+            $(#[$attributes])*
+            $vis $key: Vec<$value>,
+        ));
+    );
+
+    ( @ $resource:ident { $(#[$attributes:meta])* $vis:vis $key:ident: Vec<$value:ty> $(, $($parameters:tt)*)? } -> ($($processed:tt)*) ) => (
+        $crate::type_struct!(@ $resource { $($($parameters)*)? } -> (
+            $($processed)*
+            #[serde(default, skip_serializing_if = "Vec::is_empty")]
+            #[builder(default)]
+            $(#[$attributes])*
+            $vis $key: Vec<$value>,
+        ));
+    );
+
+    ( @ $resource:ident { $(#[$attributes:meta])* $vis:vis $key:ident: $value:ty $(, $($parameters:tt)*)? } -> ($($processed:tt)*) ) => (
+        $crate::type_struct!(@ $resource { $($($parameters)*)? } -> (
+            $($processed)*
+            $(#[$attributes])*
+            $vis $key: $value,
+        ));
+    );
+
+    ( $resource:ident { $($body:tt)* } ) => (
+        $crate::type_struct!(@ $resource { $($body)* } -> ());
+    );
+}
+
+#[macro_export]
+macro_rules! resource_struct {
+    ( $resource:ident { $($body:tt)* } ) => (
+        pastey::paste! {
+            $crate::type_struct!($resource {
                 #[serde(default = "" $resource "::resource_type" "")]
                 #[builder(default = "" "ResourceType::" $resource "", setter(skip))]
                 resource_type: ResourceType,
 
-                $($fields)*
-            }
+                $($body)*
+            });
 
             impl $resource {
                 pub const fn resource_type() -> ResourceType {
@@ -66,44 +133,5 @@ macro_rules! resource_struct {
                 }
             }
         }
-    };
-
-    ( @ $resource:ident { $key:ident: Option<$value:ty> $(, $($parameters:tt)*)? } -> ($($processed:tt)*) ) => (
-        resource_struct!(@ $resource { $($($parameters)*)? } -> (
-            $($processed)*
-            #[serde(default, skip_serializing_if = "Option::is_none")]
-            #[builder(default)]
-            pub $key: Option<$value>,
-        ));
-    );
-
-    ( @ $resource:ident { $key:ident: Vec<$value:ty> $(, $($parameters:tt)*)? } -> ($($processed:tt)*) ) => (
-        resource_struct!(@ $resource { $($($parameters)*)? } -> (
-            $($processed)*
-            #[serde(default, skip_serializing_if = "Vec::is_empty")]
-            #[builder(default)]
-            pub $key: Vec<$value>,
-        ));
-    );
-
-    ( @ $resource:ident { $key:ident: Vec<$value:ty> $(, $($parameters:tt)*)? } -> ($($processed:tt)*) ) => (
-        resource_struct!(@ $resource { $($($parameters)*)? } -> (
-            $($processed)*
-            #[serde(default, skip_serializing_if = "Vec::is_empty")]
-            #[builder(default)]
-            pub $key: Vec<$value>,
-        ));
-    );
-
-    ( @ $resource:ident { $(#[$attribute:meta])* $key:ident: $value:ty $(, $($parameters:tt)*)? } -> ($($processed:tt)*) ) => (
-        resource_struct!(@ $resource { $($($parameters)*)? } -> (
-            $($processed)*
-            $(#[$attribute])*
-            pub $key: $value,
-        ));
-    );
-
-    ( $resource:ident { $($body:tt)* } ) => (
-        resource_struct!(@ $resource { $($body)* } -> ());
     );
 }

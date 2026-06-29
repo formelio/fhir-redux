@@ -6,9 +6,9 @@ use crate::resources::{
 use crate::{codes, resource, resource_struct};
 
 resource_struct!(Bundle {
-    id: String,
-    r#type: codes::BundleType,
-    entry: Vec<types::BundleEntry>,
+    pub id: String,
+    pub r#type: codes::BundleType,
+    pub entry: Vec<types::BundleEntry>,
 });
 
 resource!([

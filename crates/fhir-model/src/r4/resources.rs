@@ -346,35 +346,35 @@ use crate::{codes, resource, resource_struct};
 // - removed requested_period
 // - added fields below
 resource_struct!(Task {
-    id: Option<String>,
-    meta: Option<Meta>,
-    extension: Vec<Extension>,
-    instantiates_canonical: Option<String>,
-    based_on: Vec<Reference>,
-    status: codes::TaskStatus,
-    business_status: Option<CodeableConcept>,
-    intent: String,
-    r#for: Option<Reference>,
-    authored_on: Option<DateTime>,
-    last_updated: Option<DateTime>,
-    requester: Option<Reference>,
-    owner: Option<Reference>,
+    pub id: Option<String>,
+    pub meta: Option<Meta>,
+    pub extension: Vec<Extension>,
+    pub instantiates_canonical: Option<String>,
+    pub based_on: Vec<Reference>,
+    pub status: codes::TaskStatus,
+    pub business_status: Option<CodeableConcept>,
+    pub intent: String,
+    pub r#for: Option<Reference>,
+    pub authored_on: Option<DateTime>,
+    pub last_updated: Option<DateTime>,
+    pub requester: Option<Reference>,
+    pub owner: Option<Reference>,
 
-    identifier: Vec<Identifier>,
-    execution_period: Option<Period>,
-    focus: Option<Reference>,
-    description: Option<String>,
+    pub identifier: Vec<Identifier>,
+    pub execution_period: Option<Period>,
+    pub focus: Option<Reference>,
+    pub description: Option<String>,
 });
 
 resource_struct!(Endpoint {
-    status: codes::EndpointStatus,
+    pub status: codes::EndpointStatus,
     #[serde(default = "Endpoint::connection_type")]
     #[builder(default = "Endpoint::connection_type()")]
-    connection_type: Coding,
+    pub connection_type: Coding,
     #[serde(default = "Endpoint::payload_type")]
     #[builder(default = "Endpoint::payload_type()")]
-    payload_type: Vec<CodeableConcept>,
-    address: String,
+    @nodefault pub payload_type: Vec<CodeableConcept>,
+    pub address: String,
 });
 
 impl Endpoint {
@@ -403,9 +403,9 @@ impl Endpoint {
 }
 
 resource_struct!(Bundle {
-    id: String,
-    r#type: codes::BundleType,
-    entry: Vec<BundleEntry>,
+    pub id: String,
+    pub r#type: codes::BundleType,
+    pub entry: Vec<BundleEntry>,
 });
 
 resource!([
