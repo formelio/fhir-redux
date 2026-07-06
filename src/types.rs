@@ -24,8 +24,14 @@ type_struct!(Extension {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum ExtensionValue {
+    #[serde(rename = "valueBoolean")]
+    Boolean(bool),
     #[serde(rename = "valueInteger")]
     Integer(i32),
+    #[serde(rename = "valueReference")]
+    Reference(Reference),
+    #[serde(rename = "valueString")]
+    String(String),
     #[serde(rename = "valueUri")]
     Uri(String),
 }
@@ -185,3 +191,15 @@ pub enum TaskInputValue {
 }
 
 type_struct!(TaskOutput { pub r#type: CodeableConcept, pub value_reference: Reference });
+
+type_struct!(QuestionnaireResponseItem {
+    pub link_id: String,
+    pub text: Option<String>,
+    pub answer: Vec<QuestionnaireResponseItemAnswer>,
+});
+
+type_struct!(QuestionnaireResponseItemAnswer {
+    pub extension: Vec<Extension>,
+    #[serde(rename = "valueString")]
+    pub value: String,
+});

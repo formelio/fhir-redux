@@ -2,7 +2,7 @@ use crate::date_time::DateTime;
 use crate::r4::types::BundleEntry;
 use crate::resources::{
     ActivityDefinition, CarePlan, CareTeam, Organization, Patient, PlanDefinition, Practitioner, PractitionerRole,
-    ServiceRequest,
+    QuestionnaireResponse, ServiceRequest,
 };
 use crate::types::{
     CodeableConcept, CodeableConceptBuilder, Coding, CodingBuilder, Extension, Identifier, Meta, Period, Reference,
@@ -83,6 +83,7 @@ resource!([
     PlanDefinition,
     Practitioner,
     PractitionerRole,
+    QuestionnaireResponse,
     ServiceRequest,
     Task,
 ]);

@@ -2,7 +2,7 @@ use crate::codes::LinkRelationTypes;
 use crate::r5::types;
 use crate::resources::{
     ActivityDefinition, CarePlan, CareTeam, Organization, Patient, PlanDefinition, Practitioner, PractitionerRole,
-    ServiceRequest, Task,
+    QuestionnaireResponse, ServiceRequest, Task,
 };
 use crate::{codes, resource, type_struct};
 
@@ -29,6 +29,7 @@ resource!([
     PlanDefinition,
     Practitioner,
     PractitionerRole,
+    QuestionnaireResponse,
     ServiceRequest,
     Task,
 ]);
