@@ -39,6 +39,7 @@ type_struct!(Endpoint {
     #[builder(default = "Endpoint::payload_type()")]
     @nodefault pub payload_type: Vec<CodeableConcept>,
     pub address: String,
+    pub meta: Meta,
 });
 
 impl Endpoint {

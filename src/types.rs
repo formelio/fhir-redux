@@ -11,6 +11,7 @@ type_struct!(Meta {
     pub last_updated: Option<Instant>,
     pub source: Option<String>,
     pub tag: Vec<Coding>,
+    pub profile: Vec<String>,
 });
 
 type_struct!(Extension {
