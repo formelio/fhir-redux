@@ -3,7 +3,7 @@ use crate::r5::resources::Resource;
 use crate::r5::types::CarePlanActivity;
 use crate::types::{
     Annotation, CareTeamParticipant, CodeableConcept, ContactPoint, ExtendedContactDetail, Extension, HumanName,
-    Identifier, Meta, Period, PlanDefinitionAction, Reference, TaskInput, TaskOutput,
+    Identifier, Meta, Period, PlanDefinitionAction, QuestionnaireResponseItem, Reference, TaskInput, TaskOutput,
 };
 use crate::{codes, type_struct};
 
@@ -120,4 +120,18 @@ type_struct!(PractitionerRole {
     pub organization: Option<Reference>,
     pub code: Vec<CodeableConcept>,
     pub specialty: Vec<CodeableConcept>,
+});
+
+type_struct!(QuestionnaireResponse {
+    pub id: Option<String>,
+    pub meta: Option<Meta>,
+    pub language: Option<String>,
+    pub extension: Vec<Extension>,
+    pub based_on: Vec<Reference>,
+    pub questionnaire: String,
+    pub status: codes::QuestionnaireResponseStatus,
+    pub subject: Option<Reference>,
+    pub authored: Option<DateTime>,
+    pub author: Option<Reference>,
+    pub item: Vec<QuestionnaireResponseItem>,
 });

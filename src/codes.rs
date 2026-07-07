@@ -85,3 +85,5 @@ code!(
 );
 
 code!(LinkRelationTypes, [Next, Prev, _Self = "self"]);
+
+code!(QuestionnaireResponseStatus, [Amended, Completed, EnteredInError, InProgress, Stopped]);
