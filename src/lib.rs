@@ -78,10 +78,18 @@ macro_rules! type_struct {
         ));
     );
 
-    ( @ $resource:ident { $(#[$attributes:meta])* $vis:vis $key:ident: $value:ty $(, $($parameters:tt)*)? } -> ($($processed:tt)*) ) => (
+    ( @ $resource:ident { $(#[$attributes:meta])* $vis:vis $key:ident: String $(, $($parameters:tt)*)? } -> ($($processed:tt)*) ) => (
         $crate::type_struct!(@ $resource { $($($parameters)*)? } -> (
             $($processed)*
             #[builder(setter(into))]
+            $(#[$attributes])*
+            $vis $key: String,
+        ));
+    );
+
+    ( @ $resource:ident { $(#[$attributes:meta])* $vis:vis $key:ident: $value:ty $(, $($parameters:tt)*)? } -> ($($processed:tt)*) ) => (
+        $crate::type_struct!(@ $resource { $($($parameters)*)? } -> (
+            $($processed)*
             $(#[$attributes])*
             $vis $key: $value,
         ));

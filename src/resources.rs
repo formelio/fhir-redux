@@ -71,16 +71,6 @@ type_struct!(Practitioner {
     pub telecom: Vec<ContactPoint>,
 });
 
-type_struct!(ActivityDefinition {
-    pub id: Option<String>,
-    pub meta: Option<Meta>,
-    pub extension: Vec<Extension>,
-    pub title: Option<String>,
-    pub status: codes::PublicationStatus,
-    pub kind: Option<String>,
-    pub intent: Option<codes::RequestIntent>,
-});
-
 type_struct!(ServiceRequest {
     pub id: String,
     pub meta: Option<Meta>,

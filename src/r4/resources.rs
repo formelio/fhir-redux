@@ -1,13 +1,23 @@
 use crate::date_time::DateTime;
 use crate::r4::types::BundleEntry;
 use crate::resources::{
-    ActivityDefinition, CarePlan, CareTeam, Organization, Patient, PlanDefinition, Practitioner, PractitionerRole,
-    QuestionnaireResponse, ServiceRequest,
+    CarePlan, CareTeam, Organization, Patient, PlanDefinition, Practitioner, PractitionerRole, QuestionnaireResponse,
+    ServiceRequest,
 };
 use crate::types::{
     CodeableConcept, CodeableConceptBuilder, Coding, CodingBuilder, Extension, Identifier, Meta, Period, Reference,
 };
 use crate::{codes, resource, type_struct};
+
+type_struct!(ActivityDefinition {
+    pub id: String,
+    pub meta: Meta,
+    pub extension: Vec<Extension>,
+    pub title: String,
+    pub description: String,
+    pub status: codes::PublicationStatus,
+    pub url: String,
+});
 
 type_struct!(Task {
     pub id: Option<String>,
@@ -31,6 +41,7 @@ type_struct!(Task {
 });
 
 type_struct!(Endpoint {
+    pub id: String,
     pub status: codes::EndpointStatus,
     #[serde(default = "Endpoint::connection_type")]
     #[builder(default = "Endpoint::connection_type()")]
