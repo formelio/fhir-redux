@@ -20,11 +20,11 @@ r4 = []
 r5 = []
 
 [dependencies]
-derive_builder = "0.13.0"
-serde = { version = "1.0.228", features = ["derive"] }
-serde_json = { version = "1.0.150", features = ["raw_value"] }
-strum = { version = "0.28.0", features = ["derive"] }
-time = { version = "0.3.27", features = ["formatting", "macros", "parsing", "serde", "serde-well-known"] }
+derive_builder = "0.20"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = { version = "1.0", features = ["raw_value"] }
+strum = { version = "0.28", features = ["derive"] }
+time = { version = "0.3", features = ["formatting", "macros", "parsing", "serde", "serde-well-known"] }
 pastey = "0.2"
 
 [dev-dependencies]
