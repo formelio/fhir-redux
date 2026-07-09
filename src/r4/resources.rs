@@ -30,7 +30,6 @@ type_struct!(Task {
     pub intent: String,
     pub r#for: Option<Reference>,
     pub authored_on: Option<DateTime>,
-    pub last_updated: Option<DateTime>,
     pub requester: Option<Reference>,
     pub owner: Option<Reference>,
 
