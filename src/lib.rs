@@ -43,7 +43,6 @@ macro_rules! type_struct {
         $crate::type_struct!(@ $resource { $($($parameters)*)? } -> (
             $($processed)*
             #[serde(skip_serializing_if = "Option::is_none")]
-            #[builder(setter(into))]
             $(#[$attributes])*
             $vis $key: Option<$value>,
         ));
@@ -53,7 +52,7 @@ macro_rules! type_struct {
         $crate::type_struct!(@ $resource { $($($parameters)*)? } -> (
             $($processed)*
             #[serde(default, skip_serializing_if = "Option::is_none")]
-            #[builder(default, setter(into))]
+            #[builder(default)]
             $(#[$attributes])*
             $vis $key: Option<$value>,
         ));
@@ -75,15 +74,6 @@ macro_rules! type_struct {
             #[builder(default)]
             $(#[$attributes])*
             $vis $key: Vec<$value>,
-        ));
-    );
-
-    ( @ $resource:ident { $(#[$attributes:meta])* $vis:vis $key:ident: String $(, $($parameters:tt)*)? } -> ($($processed:tt)*) ) => (
-        $crate::type_struct!(@ $resource { $($($parameters)*)? } -> (
-            $($processed)*
-            #[builder(setter(into))]
-            $(#[$attributes])*
-            $vis $key: String,
         ));
     );
 
