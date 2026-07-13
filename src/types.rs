@@ -51,6 +51,7 @@ type_struct!(CodeableConcept {
 });
 
 type_struct!(Reference {
+    pub extension: Vec<Extension>,
     pub reference: Option<String>,
     pub display: Option<String>,
 });
