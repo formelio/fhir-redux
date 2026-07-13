@@ -34,6 +34,10 @@ pub enum ExtensionValue {
     String(String),
     #[serde(rename = "valueUri")]
     Uri(String),
+    #[serde(rename = "valueDate")]
+    Date(DateTime),
+    #[serde(rename = "valueCoding")]
+    Coding(Coding),
 }
 
 type_struct!(Coding {
