@@ -72,7 +72,7 @@ type_struct!(Practitioner {
 });
 
 type_struct!(ServiceRequest {
-    pub id: String,
+    pub id: Option<String>,
     pub meta: Option<Meta>,
     pub extension: Vec<Extension>,
     pub based_on: Vec<Reference>,

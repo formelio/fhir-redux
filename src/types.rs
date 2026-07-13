@@ -16,10 +16,9 @@ type_struct!(Meta {
 
 type_struct!(Extension {
     pub id: Option<String>,
-    pub extension: Vec<Extension>,
     pub url: String,
     #[serde(flatten)]
-    pub value: Option<ExtensionValue>,
+    pub value: ExtensionValue,
 });
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
