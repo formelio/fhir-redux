@@ -13,7 +13,7 @@ type_struct!(CarePlanActivity {
 
 type_struct!(BundleEntry {
     pub resource: Resource,
-    pub search: BundleEntrySearch,
+    pub search: Option<BundleEntrySearch>,
 });
 
 type_struct!(BundleEntrySearch {
