@@ -38,6 +38,8 @@ pub enum ExtensionValue {
     Date(DateTime),
     #[serde(rename = "valueCoding")]
     Coding(Coding),
+    #[serde(rename = "valueCode")]
+    Code(String),
 }
 
 type_struct!(Coding {
