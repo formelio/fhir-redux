@@ -2,7 +2,7 @@ use std::num::NonZeroU32;
 
 use serde::{Deserialize, Serialize};
 
-use crate::date_time::{DateTime, Instant, Time};
+use crate::date_time::{Date, DateTime, Instant, Time};
 use crate::{codes, type_struct};
 
 type_struct!(Meta {
@@ -24,8 +24,24 @@ type_struct!(Extension {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum ExtensionValue {
+    #[serde(rename = "valueBase64Binary")]
+    Base64Binary(String),
     #[serde(rename = "valueBoolean")]
     Boolean(bool),
+    #[serde(rename = "valueCodeableConcept")]
+    CodableConcept(CodeableConcept),
+    #[serde(rename = "valueCode")]
+    Code(String),
+    #[serde(rename = "valueCoding")]
+    Coding(Coding),
+    #[serde(rename = "valueDate")]
+    Date(Date),
+    #[serde(rename = "valueDateTime")]
+    DateTime(DateTime),
+    #[serde(rename = "extension")]
+    Extension(Vec<Extension>),
+    #[serde(rename = "valueId")]
+    Id(String),
     #[serde(rename = "valueInteger")]
     Integer(i32),
     #[serde(rename = "valueReference")]
@@ -34,12 +50,6 @@ pub enum ExtensionValue {
     String(String),
     #[serde(rename = "valueUri")]
     Uri(String),
-    #[serde(rename = "valueDate")]
-    Date(DateTime),
-    #[serde(rename = "valueCoding")]
-    Coding(Coding),
-    #[serde(rename = "valueCode")]
-    Code(String),
 }
 
 type_struct!(Coding {
