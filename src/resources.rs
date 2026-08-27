@@ -7,6 +7,15 @@ use crate::types::{
 };
 use crate::{codes, type_struct};
 
+type_struct!(Basic {
+    pub id: Option<String>,
+    pub identifier: Vec<Identifier>,
+    pub meta: Option<Meta>,
+    pub created: Option<DateTime>,
+    pub extension: Vec<Extension>,
+    pub subject: Option<Reference>,
+});
+
 type_struct!(CarePlan {
     pub id: Option<String>,
     pub meta: Option<Meta>,

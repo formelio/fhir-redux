@@ -1,8 +1,8 @@
 use crate::codes::LinkRelationTypes;
 use crate::r5::types;
 use crate::resources::{
-    CarePlan, CareTeam, Organization, Patient, PlanDefinition, Practitioner, PractitionerRole, QuestionnaireResponse,
-    ServiceRequest, Task,
+    Basic, CarePlan, CareTeam, Organization, Patient, PlanDefinition, Practitioner, PractitionerRole,
+    QuestionnaireResponse, ServiceRequest, Task,
 };
 use crate::types::{Extension, Meta};
 use crate::{codes, resource, type_struct};
@@ -31,6 +31,7 @@ impl Bundle {
 
 resource!([
     ActivityDefinition,
+    Basic,
     Bundle,
     CarePlan,
     CareTeam,
