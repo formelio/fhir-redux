@@ -68,7 +68,16 @@ type_struct!(CodeableConcept {
 type_struct!(Reference {
     pub extension: Vec<Extension>,
     pub reference: Option<String>,
+    pub r#type: Option<String>,
     pub display: Option<String>,
+});
+
+type_struct!(Attachment {
+    pub content_type: Option<String>,
+    pub data: Option<String>,
+    pub url: Option<String>,
+    pub title: Option<String>,
+    pub creation: Option<DateTime>,
 });
 
 type_struct!(Period {

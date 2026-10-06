@@ -49,6 +49,7 @@ macro_rules! code {
 
 code!(RequestStatus, [Active, Completed, Draft, EnteredInError, OnHold, Revoked, Unknown]);
 code!(NameUse, [Anonymous, Maiden, Nickname, Official, Old, Temp, Usual]);
+code!(AdministrativeGender, [Female, Male, Other, Unknown]);
 
 code!(ContactPointSystem, [Email, Fax, Other, Pager, Phone, Sms, Url]);
 code!(ContactPointUse, [Home, Mobile, Old, Temp, Work]);
@@ -87,3 +88,14 @@ code!(
 code!(LinkRelationTypes, [Next, Prev, _Self = "self"]);
 
 code!(QuestionnaireResponseStatus, [Amended, Completed, EnteredInError, InProgress, Stopped]);
+
+code!(ConsentState, [Active, Draft, EnteredInError, Inactive, Proposed, Rejected]);
+code!(ConsentProvisionType, [Deny, Permit]);
+code!(EncounterStatus, [Arrived, Cancelled, EnteredInError, Finished, InProgress, Onleave, Planned, Triaged, Unknown]);
+code!(EventStatus, [Completed, EnteredInError, InProgress, NotDone, OnHold, Preparation, Stopped, Unknown]);
+code!(ObservationStatus, [Amended, Cancelled, Corrected, EnteredInError, Final, Preliminary, Registered, Unknown]);
+code!(
+    GoalLifecycleStatus,
+    [Accepted, Active, Cancelled, Completed, EnteredInError, OnHold, Planned, Proposed, Rejected]
+);
+code!(DeviceUseStatementStatus, [Active, Completed, EnteredInError, Intended, OnHold, Stopped]);

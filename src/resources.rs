@@ -1,9 +1,10 @@
-use crate::date_time::DateTime;
+use crate::date_time::{Date, DateTime};
 use crate::r5::resources::Resource;
 use crate::r5::types::CarePlanActivity;
 use crate::types::{
-    Annotation, CareTeamParticipant, CodeableConcept, ContactPoint, ExtendedContactDetail, Extension, HumanName,
-    Identifier, Meta, Period, PlanDefinitionAction, QuestionnaireResponseItem, Reference, TaskInput, TaskOutput,
+    Address, Annotation, CareTeamParticipant, CodeableConcept, ContactPoint, ExtendedContactDetail, Extension,
+    HumanName, Identifier, Meta, Period, PlanDefinitionAction, QuestionnaireResponseItem, Reference, TaskInput,
+    TaskOutput,
 };
 use crate::{codes, type_struct};
 
@@ -58,6 +59,10 @@ type_struct!(Patient {
     pub identifier: Vec<Identifier>,
     pub active: Option<bool>,
     pub name: Vec<HumanName>,
+    pub telecom: Vec<ContactPoint>,
+    pub gender: Option<codes::AdministrativeGender>,
+    pub birth_date: Option<Date>,
+    pub address: Vec<Address>,
 });
 
 type_struct!(PlanDefinition {
