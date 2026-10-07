@@ -1,4 +1,4 @@
-use crate::codes::LinkRelationTypes;
+use crate::codes::LinkRelationType;
 use crate::r5::types;
 use crate::resources::{
     Basic, CarePlan, CareTeam, Organization, Patient, PlanDefinition, Practitioner, PractitionerRole,
@@ -25,7 +25,7 @@ type_struct!(Bundle {
 
 impl Bundle {
     pub fn next(&self) -> Option<String> {
-        self.link.iter().find(|link| link.relation == LinkRelationTypes::Next).map(|link| link.url.clone())
+        self.link.iter().find(|link| link.relation == LinkRelationType::Next).map(|link| link.url.clone())
     }
 }
 

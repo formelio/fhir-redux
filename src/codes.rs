@@ -85,7 +85,7 @@ code!(
     [Batch, BatchResponse, Collection, Document, History, Message, Searchset, Transaction, TransactionResponse]
 );
 
-code!(LinkRelationTypes, [Next, Prev, _Self = "self"]);
+code!(LinkRelationType, [Next, Prev, _Self = "self"]);
 
 code!(QuestionnaireResponseStatus, [Amended, Completed, EnteredInError, InProgress, Stopped]);
 

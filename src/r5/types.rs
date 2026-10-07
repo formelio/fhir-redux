@@ -21,6 +21,6 @@ type_struct!(BundleEntrySearch {
 });
 
 type_struct!(BundleLink {
-    pub relation: codes::LinkRelationTypes,
+    pub relation: codes::LinkRelationType,
     pub url: String,
 });

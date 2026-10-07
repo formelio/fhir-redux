@@ -83,7 +83,7 @@ Adding codes is also made simple by providing a macro to do the heavy lifting. A
 Making a code is as simple as can be:
 
 ```
-code!(LinkRelationTypes, [Next, Prev, _Self = "self"]);
+code!(LinkRelationType, [Next, Prev, _Self = "self"]);
 ```
 
 The macro automatically creates an enum for you with the given options in the list. To avoid issues with keywords, fields can be renamed with an optional `= "{serialised-name}"` after it, though this needs only be used in rare cases such as when needing to parse `"self"`.
