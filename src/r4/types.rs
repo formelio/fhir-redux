@@ -3,7 +3,7 @@ use crate::types::{CodeableConcept, Extension, Period, Reference};
 use crate::{codes, type_struct};
 
 type_struct!(BundleLink {
-    pub relation: codes::LinkRelationTypes,
+    pub relation: codes::LinkRelationType,
     pub url: String,
 });
 
