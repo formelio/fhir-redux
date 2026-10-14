@@ -15,6 +15,7 @@ type_struct!(Basic {
     pub created: Option<DateTime>,
     pub extension: Vec<Extension>,
     pub subject: Option<Reference>,
+    pub author: Option<Reference>,
 });
 
 type_struct!(CarePlan {
