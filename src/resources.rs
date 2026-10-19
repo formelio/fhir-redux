@@ -16,6 +16,7 @@ type_struct!(Basic {
     pub extension: Vec<Extension>,
     pub subject: Option<Reference>,
     pub author: Option<Reference>,
+    pub code: CodeableConcept,
 });
 
 type_struct!(CarePlan {
