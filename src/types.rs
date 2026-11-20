@@ -52,6 +52,29 @@ pub enum ExtensionValue {
     Uri(String),
 }
 
+pub trait ValueByUrlExt {
+    fn value_by_url(&self, url: &str) -> Option<&ExtensionValue>;
+}
+
+impl ValueByUrlExt for [Extension] {
+    fn value_by_url(&self, url: &str) -> Option<&ExtensionValue> {
+        self.iter().find(|extension| extension.url == url).map(|extension| &extension.value)
+    }
+}
+
+pub trait ReferenceByUrlExt {
+    fn reference_by_url(&self, url: &str) -> Option<&Reference>;
+}
+
+impl ReferenceByUrlExt for [Extension] {
+    fn reference_by_url(&self, url: &str) -> Option<&Reference> {
+        match self.value_by_url(url)? {
+            ExtensionValue::Reference(reference) => Some(reference),
+            _ => None,
+        }
+    }
+}
+
 type_struct!(Coding {
     pub system: String,
     pub code: String,
@@ -229,3 +252,39 @@ type_struct!(QuestionnaireResponseItemAnswer {
     #[serde(rename = "valueString")]
     pub value: String,
 });
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn extension(url: &str, value: ExtensionValue) -> Extension {
+        Extension { id: None, url: url.to_owned(), value }
+    }
+
+    fn extensions() -> Vec<Extension> {
+        vec![
+            extension("urn:string", ExtensionValue::String("hello".to_owned())),
+            extension(
+                "urn:reference",
+                ExtensionValue::Reference(Reference::builder().reference("Patient/1".to_owned()).build().unwrap()),
+            ),
+            extension("urn:string", ExtensionValue::String("shadowed".to_owned())),
+        ]
+    }
+
+    #[test]
+    fn value_by_url_finds_the_first_match() {
+        assert_eq!(extensions().value_by_url("urn:string"), Some(&ExtensionValue::String("hello".to_owned())));
+        assert_eq!(extensions().value_by_url("urn:absent"), None);
+    }
+
+    #[test]
+    fn reference_by_url_only_yields_references() {
+        assert_eq!(
+            extensions().reference_by_url("urn:reference").and_then(|r| r.reference.as_deref()),
+            Some("Patient/1")
+        );
+        assert_eq!(extensions().reference_by_url("urn:string"), None);
+        assert_eq!(extensions().reference_by_url("urn:absent"), None);
+    }
+}

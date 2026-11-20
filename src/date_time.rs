@@ -287,6 +287,13 @@ impl PartialOrd for Date {
 }
 
 impl DateTime {
+    pub const fn as_instant(&self) -> Option<&Instant> {
+        match self {
+            DateTime::Date(_) => None,
+            DateTime::DateTime(instant) => Some(instant),
+        }
+    }
+
     const fn sort_key(&self) -> ((i32, Option<time::Month>, Option<u8>), Option<time::Time>) {
         match self {
             DateTime::Date(date) => (date.sort_key(), None),
@@ -499,6 +506,16 @@ mod tests {
         let less = DateTime::from_str(less).unwrap();
         let greater = DateTime::from_str(greater).unwrap();
         assert!(less < greater, "expected {less} < {greater}");
+    }
+
+    #[rstest]
+    #[case("2024", None)]
+    #[case("2024-03-07", None)]
+    #[case("2024-03-07T12:34:56Z", Some("2024-03-07T12:34:56Z"))]
+    #[case("2024-03-08T00:30:00+02:00", Some("2024-03-08T00:30:00+02:00"))]
+    fn as_instant_only_yields_full_datetimes(#[case] input: &str, #[case] expected: Option<&str>) {
+        let datetime = DateTime::from_str(input).unwrap();
+        assert_eq!(datetime.as_instant().map(ToString::to_string), expected.map(ToOwned::to_owned));
     }
 
     #[test]
